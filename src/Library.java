@@ -2,8 +2,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Library {
-    private List<Reader> readers;
-    private List<Book> books;
+    private final List<Reader> readers;
+    private final List<Book> books;
 
     public Library() {
         this.readers = new ArrayList<>();
