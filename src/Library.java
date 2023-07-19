@@ -17,6 +17,12 @@ public class Library {
     public void addBook(Book book) {
         books.add(book);
     }
+    public void removeReader(Reader reader){
+        readers.remove(reader);
+    }
+    public void removeBook(Book book){
+        books.remove(book);
+    }
 
     public List<Book> searchBookByAuthor(Author author) {
         List<Book> result = new ArrayList<>();
