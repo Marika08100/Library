@@ -29,6 +29,7 @@ public class Library {
         for (Book book : books) {
             if (book.getAuthors().contains(author)) {
                 result.add(book);
+                break;
             }
         }
         return result;
