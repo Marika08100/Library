@@ -64,4 +64,13 @@ public class Reader {
         }
     }
 
+    @Override
+    public String toString() {
+        return "Reader{" +
+                "name='" + name + '\'' +
+                ", readerID='" + readerID + '\'' +
+                ", favoriteCategory=" + favoriteCategory +
+                ", borrowedBooks=" + borrowedBooks +
+                '}';
+    }
 }

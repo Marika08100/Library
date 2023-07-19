@@ -47,4 +47,11 @@ public class Library {
         return result;
     }
 
+    @Override
+    public String toString() {
+        return "Library{" +
+                "readers=" + readers +
+                ", books=" + books +
+                '}';
+    }
 }
