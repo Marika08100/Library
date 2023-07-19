@@ -35,34 +35,7 @@ public class Reader {
         this.favoriteCategory.remove(category);
     }
 
-    public Map<Book, Integer> getBorrowedBooks() {
-        return borrowedBooks;
-    }
 
-    public void borrowBooks(Book book) {
-
-        if (borrowedBooks.containsKey(book)) {
-            int current = borrowedBooks.getOrDefault(book, 0);
-            if (current > 0) {
-                borrowedBooks.put(book, current - 1);
-                book.setTotalCopies(book.getTotalCopies() - 1);
-                System.out.println("The book is borrowed : " + book.getTitle());
-            } else {
-                System.out.println("The book is unavailable");
-            }
-        }
-    }
-
-    public void returnBook(Book book) {
-        if (borrowedBooks.containsKey(book)) {
-            int current = borrowedBooks.getOrDefault(book, 0);
-            borrowedBooks.put(book, current + 1);
-            book.setTotalCopies(book.getTotalCopies() + 1);
-            System.out.println("The book is returned " + book.getTitle());
-        }else{
-            System.out.println("This book is not in this library! ");
-        }
-    }
 
     @Override
     public String toString() {

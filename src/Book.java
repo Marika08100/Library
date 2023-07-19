@@ -6,7 +6,6 @@ public class Book {
     private final int publicationYear;
     private final List<Author> authors;
     private final Set<Category> category;
-    private int totalCopies;
 
     public Book(String title, int publicationYear, List<Author> authors, Set<Category> category) {
         this.title = title;
@@ -31,11 +30,13 @@ public class Book {
         return category;
     }
 
-    public int getTotalCopies() {
-        return totalCopies;
-    }
-
-    public void setTotalCopies(int totalCopies) {
-        this.totalCopies = totalCopies;
+    @Override
+    public String toString() {
+        return "Book{" +
+                "title='" + title + '\'' +
+                ", publicationYear=" + publicationYear +
+                ", authors=" + authors +
+                ", category=" + category +
+                '}';
     }
 }

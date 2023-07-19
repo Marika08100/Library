@@ -1,64 +1,101 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Library {
     private final List<Reader> readers;
-    private final List<Book> books;
+    private final Map<Book, Integer> borrowedBooks;
 
     public Library() {
         this.readers = new ArrayList<>();
-        this.books = new ArrayList<>();
+        this.borrowedBooks = new HashMap<>();
     }
 
     public void addReader(Reader reader) {
         readers.add(reader);
     }
 
-    public void addBook(Book book) {
-        books.add(book);
-    }
-    public void removeReader(Reader reader){
-        readers.remove(reader);
-    }
-    public void removeBook(Book book){
-        books.remove(book);
+    public void borrowBook(Book book) {
+        int borrowedCount = borrowedBooks.getOrDefault(book, 0);
+        if (borrowedCount > 0) {
+            borrowedBooks.put(book, borrowedCount - 1);
+            System.out.println("The book is borrowed: " + book.getTitle());
+        } else {
+            System.out.println("The book is unavailable: " + book.getTitle());
+        }
     }
 
-    public List<Book> searchBookByAuthor(Author author) {
-        List<Book> result = new ArrayList<>();
-        for (Book book : books) {
+    public void returnBook(Book book) {
+        if (borrowedBooks.containsKey(book)) {
+            int borrowedCount = borrowedBooks.get(book);
+            borrowedBooks.put(book, borrowedCount + 1);
+            System.out.println("The book is returned: " + book.getTitle());
+        } else {
+            System.out.println("This book is not borrowed: " + book.getTitle());
+        }
+    }
+
+    public Map<Book, Integer> getBorrowedBooks() {
+        return borrowedBooks;
+    }
+    public Map<Book, Integer> searchBookByAuthor(Author author) {
+        Map<Book, Integer> result = new HashMap<>();
+        for (Map.Entry<Book, Integer> entry : borrowedBooks.entrySet()) {
+            Book book = entry.getKey();
             if (book.getAuthors().contains(author)) {
-                result.add(book);
-                break;
-            }
-        }
-        return result;
-    }
-    public List<Book> searchBookByTitle(String title){
-        List<Book> result = new ArrayList<>();
-        for (Book book : books){
-            if(book.getTitle().contains(title)){
-                result.add(book);
-            }
-
-        }
-        return result;
-    }
-    public List<Book> searchBookByCategory(Category category){
-        List<Book> result = new ArrayList<>();
-        for(Book book : books){
-            if(book.getCategory().contains(category)){
-                result.add(book);
+                result.put(book, entry.getValue());
             }
         }
         return result;
     }
 
-    @Override
-    public String toString() {
-        return "Library{" +
-                "readers=" + readers +
-                ", books=" + books +
-                '}';
+    public Map<Book, Integer> searchBookByTitle(String title) {
+        Map<Book, Integer> result = new HashMap<>();
+        for (Map.Entry<Book, Integer> entry : borrowedBooks.entrySet()) {
+            Book book = entry.getKey();
+            if (book.getTitle().contains(title)) {
+                result.put(book, entry.getValue());
+            }
+        }
+        return result;
     }
+
+    public Map<Book, Integer> searchBookByCategory(Category category) {
+        Map<Book, Integer> result = new HashMap<>();
+        for (Map.Entry<Book, Integer> entry : borrowedBooks.entrySet()) {
+            Book book = entry.getKey();
+            if (book.getCategory().contains(category)) {
+                result.put(book, entry.getValue());
+            }
+        }
+        return result;
+    }
+
+    public Map<Reader, Integer> getBorrowedBookCountsByReader() {
+        Map<Reader, Integer> borrowedBookCounts = new HashMap<>();
+        for (Reader reader : readers) {
+            int count = 0;
+            for (int borrowedCount : borrowedBooks.values()) {
+                count += borrowedCount;
+            }
+            borrowedBookCounts.put(reader, count);
+        }
+        return borrowedBookCounts;
+    }
+
+    public Book getMostBorrowedBook() {
+        Book mostBorrowedBook = null;
+        int maxBorrowedCount = 0;
+        for (Map.Entry<Book, Integer> entry : borrowedBooks.entrySet()) {
+            int borrowedCount = entry.getValue();
+            if (borrowedCount > maxBorrowedCount) {
+                mostBorrowedBook = entry.getKey();
+                maxBorrowedCount = borrowedCount;
+            }
+        }
+        return mostBorrowedBook;
+    }
+
+
 }
