@@ -7,13 +7,11 @@ public class Reader {
     private final String name;
     private final String readerID;
     private Set<Category> favoriteCategory;
-    private Map<Book, Integer> borrowedBooks;
 
-    public Reader(String name, String readerID, Set<Category> favoriteCategory, Map<Book, Integer> borrowedBooks) {
+    public Reader(String name, String readerID, Set<Category> favoriteCategory) {
         this.name = name;
         this.readerID = readerID;
         this.favoriteCategory = favoriteCategory;
-        this.borrowedBooks = borrowedBooks;
     }
 
     public String getName() {
@@ -42,8 +40,6 @@ public class Reader {
         return "Reader{" +
                 "name='" + name + '\'' +
                 ", readerID='" + readerID + '\'' +
-                ", favoriteCategory=" + favoriteCategory +
-                ", borrowedBooks=" + borrowedBooks +
-                '}';
+                ", favoriteCategory=" + favoriteCategory ;
     }
 }
