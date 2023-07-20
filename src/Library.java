@@ -15,6 +15,15 @@ public class Library {
     public void addReader(Reader reader) {
         readers.add(reader);
     }
+    public void removeReader(Reader reader){
+        readers.remove(reader);
+    }
+    public void addBook(Book book){
+        borrowedBooks.put(book,0);
+    }
+    public void removeBook(Book book){
+        borrowedBooks.remove(book);
+    }
 
     public void borrowBook(Book book) {
         int borrowedCount = borrowedBooks.getOrDefault(book, 0);
